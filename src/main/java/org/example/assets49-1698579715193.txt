@@ -1,0 +1,3 @@
+Your Order are:
+"iphone" x 1 = Rs. 50000.0
+Total - Rs. 50000.0

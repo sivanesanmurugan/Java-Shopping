@@ -1,0 +1,4 @@
+Your Order are:
+"T-shirt" x 1 = Rs. 1000.0
+"shirt" x 1 = Rs. 1500.0
+Total - Rs. 2500.0
