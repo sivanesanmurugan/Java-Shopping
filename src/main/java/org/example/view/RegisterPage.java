@@ -1,27 +1,24 @@
 package org.example.view;
 
-import org.example.utils.StringUtil;
-
-import static org.example.utils.Utils.println;
+import org.example.util.StringUtils;
 
 public class RegisterPage {
-
-    public void printRegistrationSuccessful() {
+    public static void printRegistrationSuccessful() {
         try {
-            println("#---------------------#");
-            println(StringUtil.REGISTRATION_SUCCESSFUL);
-            println("#---------------------#");
+            System.out.println("#---------------------#");
+            System.out.println(StringUtils.REGISTRATION_SUCCESSFUL);
+            System.out.println("#---------------------#");
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void passwordMisMatch() {
+    public static void passwordMissMatch() {
         try {
-            println("#---------------------#");
-            println(StringUtil.PASSWORD_MISMATCH);
-            println("#---------------------#");
+            System.out.println("#---------------------#");
+            System.out.println(StringUtils.PASSWORD_MISMATCH);
+            System.out.println("#---------------------#");
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

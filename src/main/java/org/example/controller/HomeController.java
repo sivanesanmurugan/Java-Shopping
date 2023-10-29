@@ -1,54 +1,47 @@
 package org.example.controller;
-import org.example.controller.impl.IHomeController;
-import org.example.utils.AppException;
-import org.example.utils.StringUtil;
+
+import org.example.util.AppException;
+import org.example.util.AppInput;
+import org.example.util.StringUtils;
 import org.example.view.HomePage;
 
-import static org.example.utils.AppInput.enterInt;
-import static org.example.utils.Utils.println;
-import static org.example.utils.Utils.println;
-
-public class HomeController implements IHomeController {
+public class HomeController {
     private final HomePage homePage;
-    private final AuthController authController;
     private final CategoryController categoryController;
-    private final ProductController productController;
-    private final CartController cartController;
+    private  final ProductController productController;
 
-    public HomeController(AuthController authController) {
-        homePage = new HomePage();
-        this.authController = authController;
-        productController = new ProductController();
-        categoryController = new CategoryController(this);
-        cartController = new CartController();
+
+    public HomeController() {
+        this.homePage = new HomePage();
+        this.categoryController = new CategoryController(this);
+        this.productController=new ProductController(this);
     }
 
-
-    @Override
     public void printMenu() {
         homePage.printMenu();
         try {
-            int choice = enterInt(StringUtil.ENTER_CHOICE);
+            int choice = AppInput.enterInt(StringUtils.ENTER_CHOICE);
             if (choice == 1) {
                 categoryController.printMenu();
             } else if (choice == 2) {
-                productController.showProducts(0);
-            } else if (choice == 3) {
-                cartController.printCart();
-            } else if (choice == 4) {
 
+            } else if (choice == 3) {
+                System.out.println(choice);
+            } else if (choice == 4) {
+                System.out.println(choice);
             } else if (choice == 5) {
-                authController.authMenu();
+                System.out.println(choice);
             } else {
-                invalidChoice(new AppException(StringUtil.INVALID_CHOICE));
+                invalidChoice(new AppException(StringUtils.INVALID_CHOICE));
             }
-        } catch (AppException appException) {
-            invalidChoice(appException);
+
+        } catch (AppException e) {
+            invalidChoice(e);
         }
     }
 
     private void invalidChoice(AppException appException) {
-        println(appException.getMessage());
+        System.out.println(appException.getMessage());
         printMenu();
     }
 }

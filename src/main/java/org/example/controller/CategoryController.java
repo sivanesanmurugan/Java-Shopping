@@ -1,58 +1,58 @@
 package org.example.controller;
 
 import org.example.models.Category;
-import org.example.utils.AppException;
-import org.example.utils.StringUtil;
+import org.example.util.AppException;
+import org.example.util.AppInput;
+import org.example.util.LoadUtils;
+import org.example.util.StringUtils;
 import org.example.view.CategoryPage;
 
 import java.util.ArrayList;
 
-import static org.example.utils.AppInput.enterInt;
-import static org.example.utils.Utils.println;
-import static org.example.utils.loadUtils.getCategories;
-
 public class CategoryController {
     private final CategoryPage categoryPage;
     private final ProductController productController;
+
     private final HomeController homeController;
 
     public CategoryController(HomeController homeController) {
-        categoryPage = new CategoryPage();
-        productController = new ProductController();
+
+        this.categoryPage = new CategoryPage();
         this.homeController = homeController;
+        this.productController = new ProductController(homeController);
     }
 
     public void printMenu() {
-        ArrayList<Category> categories = getCategories();
+        ArrayList<Category> categories = LoadUtils.getCategories();
         categoryPage.printMenu(categories);
 
-        try {
-            int choice = enterInt(StringUtil.ENTER_CHOICE);
+        try{
+            int choice = AppInput.enterInt(StringUtils.ENTER_CHOICE);
+            if (choice == 99){
 
-            if (choice == 99) {
-                homeController.printMenu();
             } else {
-                int validCategoryId = 0;
-
-                for (Category category : categories) {
-                    if (category.getId() == choice) {
-                        validCategoryId = category.getId();
+                int catId = 0;
+                for(Category cat:categories){
+                    if(cat.getId()==choice){
+                        catId = choice;
                         break;
                     }
                 }
-
-                if (validCategoryId != 0) {
-                    productController.showProducts(validCategoryId);
-                } else {
-                    invalidChoice(new AppException(StringUtil.INVALID_CHOICE));
+                if(catId!=0) {
+                    productController.showProducts(catId);
+                } else{
+                    invalidChoice(new AppException(StringUtils.INVALID_CHOICE));
                 }
             }
-        } catch (AppException appException) {
-            invalidChoice(appException);
+
+        } catch (AppException e) {
+            invalidChoice(e);
         }
+
     }
-    private void invalidChoice(AppException appException) {
-        println(appException.getMessage());
+
+    private void invalidChoice(AppException e) {
+        System.out.println(e.getMessage());
         printMenu();
     }
 }

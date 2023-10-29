@@ -1,28 +1,21 @@
 package org.example.models;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Order {
-    private int id;
+    private Timestamp id;
     private Date date;
-    private ArrayList<Cart> cart;
+    private User user;
+    private ArrayList<CartProduct> cartProducts;
 
-    public int getId() {
+    public Timestamp getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Timestamp id) {
         this.id = id;
-    }
-
-    public ArrayList<Cart> getCart() {
-        return cart;
-    }
-
-    public void setCart(ArrayList<Cart> cart) {
-        this.cart = cart;
     }
 
     public Date getDate() {
@@ -33,11 +26,19 @@ public class Order {
         this.date = date;
     }
 
-    public ArrayList<Cart> getCartProducts() {
-        return cart;
+    public User getUser() {
+        return user;
     }
 
-    public void setCartProducts(ArrayList<Cart> cart) {
-        this.cart = cart;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public ArrayList<CartProduct> getCartProducts() {
+        return cartProducts;
+    }
+
+    public void setCartProducts(ArrayList<CartProduct> cartProducts) {
+        this.cartProducts = cartProducts;
     }
 }

@@ -3,8 +3,8 @@ package org.example.controller;
 import org.example.controller.impl.IAuthController;
 import org.example.models.Role;
 import org.example.models.User;
-import org.example.utils.AppException;
-import org.example.utils.StringUtil;
+import org.example.util.*;
+import org.example.view.AuthPage;
 import org.example.view.LoginPage;
 import org.example.view.RegisterPage;
 
@@ -13,51 +13,46 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import static org.example.utils.AppInput.enterInt;
-import static org.example.utils.AppInput.enterString;
-import static org.example.utils.FileUtil.getCredentialsFile;
-import static org.example.utils.Utils.println;
+import static org.example.util.AppInput.enterInt;
 
 public class AuthController implements IAuthController {
-
     private final HomeController homeController;
-    private final AppController appController;
     private final LoginPage loginPage;
     private final RegisterPage registerPage;
 
-    public AuthController(AppController appController) {
-        this.appController = appController;
-        homeController = new HomeController(this);
-        loginPage = new LoginPage();
-        registerPage = new RegisterPage();
+    private final AuthPage authPage;
+    public AuthController() {
+        this.loginPage = new LoginPage();
+        this.registerPage = new RegisterPage();
+        this.homeController = new HomeController();
+        this.authPage = new AuthPage();
     }
 
-    @Override
-    public void authMenu() {
-        appController.printAuthMenu();
+    public void authMenu() throws AppException {
+        authPage.printAuthMenu();
         int choice;
+
         try {
-            choice = enterInt(StringUtil.ENTER_CHOICE);
-            if (choice == 1) {
+            choice = enterInt(StringUtils.ENTER_CHOICE);
+            if (choice ==1){
                 login();
             } else if (choice == 2) {
                 register();
             } else {
-                invalidChoice(new AppException(StringUtil.INVALID_CHOICE));
+                invalidChoice(new AppException(StringUtils.INVALID_CHOICE));
             }
         } catch (AppException appException) {
             invalidChoice(appException);
         }
     }
 
-    @Override
-    public void login() {
-        String email, password;
-        email = enterString(StringUtil.ENTER_EMAIL);
-        password = enterString(StringUtil.ENTER_PASSWORD);
-
-        User user = validateUser(email, password);
-        if (user != null) {
+    public void login() throws AppException {
+        String email,password;
+        email = AppInput.enterString(StringUtils.ENTER_EMAIL);
+        password = AppInput.enterString(StringUtils.ENTER_PASSWORD);
+        User user = validateUser(email,password);
+        if (user != null){
+            UserUtil.setLoggedUser(user);
             homeController.printMenu();
         } else {
             loginPage.printInvalidCredentials();
@@ -65,40 +60,9 @@ public class AuthController implements IAuthController {
         }
     }
 
-    @Override
-    public void register() {
-        String name, email, password, c_password;
-        name = enterString(StringUtil.ENTER_NAME);
-        email = enterString(StringUtil.ENTER_EMAIL);
-        password = enterString(StringUtil.ENTER_PASSWORD);
-        c_password = enterString(StringUtil.ENTER_PASSWORD_AGAIN);
-
-        if (password.equals(c_password)) {
-            try {
-                FileWriter csvWriter = new FileWriter(getCredentialsFile(), true);
-                int id = (int) (Math.random() * 100);
-                csvWriter.append("\n");
-                csvWriter.append(id + "," + name + "," + email + "," + password);
-                csvWriter.flush();
-                csvWriter.close();
-                registerPage.printRegistrationSuccessful();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            registerPage.passwordMisMatch();
-        }
-        authMenu();
-    }
-
-    @Override
-    public void logout() {
-
-    }
-
     private User validateUser(String email, String password) {
         try {
-            Scanner scanner = new Scanner(getCredentialsFile());
+            Scanner scanner = new Scanner(FileUtil.getCredentialsFile());
             while (scanner.hasNext()) {
                 String value = scanner.next().trim();
                 if (!value.startsWith("id")) {
@@ -118,14 +82,45 @@ public class AuthController implements IAuthController {
                 }
             }
             scanner.close();
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
         return null;
     }
 
-    private void invalidChoice(AppException e) {
-        println(e.getMessage());
+    public void register() throws AppException {
+        String email,password,name,c_password;
+        name = AppInput.enterString(StringUtils.ENTER_NAME);
+        email =  AppInput.enterString(StringUtils.ENTER_EMAIL);
+        password =  AppInput.enterString(StringUtils.ENTER_PASSWORD);
+        c_password =  AppInput.enterString(StringUtils.ENTER_PASSWORD_AGAIN);
+
+        if(password.equals(c_password)){
+            try {
+                FileWriter csv = new FileWriter(FileUtil.getCredentialsFile(),true);
+                int id = (int) (Math.random()*100);
+                csv.append("\n");
+                csv.append(id + "," + name + "," + email + "," + password);
+                csv.flush();
+                csv.close();
+                RegisterPage.printRegistrationSuccessful();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }else {
+            RegisterPage.passwordMissMatch();
+        }
+        authMenu();
+    }
+
+    @Override
+    public void logout() {
+
+    }
+
+    public void invalidChoice(AppException e) throws AppException {
+        System.out.println(e.getMessage());
         authMenu();
     }
 }

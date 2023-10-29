@@ -1,13 +1,13 @@
 package org.example.view;
 
-import static org.example.utils.Utils.println;
+import org.example.util.StringUtils;
 
 public class LoginPage {
-    public void printInvalidCredentials() {
+    public void printInvalidCredentials(){
         try {
-            println("#---------------------#");
-            println("Invalid Credentials!!!");
-            println("#---------------------#");
+            System.out.println("#---------------------#");
+            System.out.println(StringUtils.INVALID_CREDENTIALS);
+            System.out.println("#---------------------#");
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

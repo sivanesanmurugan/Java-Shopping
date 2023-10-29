@@ -1,6 +1,6 @@
 package org.example.models;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
 
 public class User {
     private int id;
@@ -8,24 +8,8 @@ public class User {
     private String password;
     private String name;
     private Role role;
-    private Cart userCart;
-    private ArrayList<Order> userOrders;
 
-    public Cart getUserCart() {
-        return userCart;
-    }
 
-    public void setUserCart(Cart userCart) {
-        this.userCart = userCart;
-    }
-
-    public ArrayList<Order> getUserOrders() {
-        return userOrders;
-    }
-
-    public void setUserOrders(ArrayList<Order> userOrders) {
-        this.userOrders = userOrders;
-    }
 
     public int getId() {
         return id;

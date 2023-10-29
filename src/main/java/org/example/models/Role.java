@@ -1,5 +1,5 @@
 package org.example.models;
 
 public enum Role {
-    ADMIN, USER
+    USER,ADMIN
 }
