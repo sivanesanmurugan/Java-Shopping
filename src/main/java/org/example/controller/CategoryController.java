@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class CategoryController {
     private final CategoryPage categoryPage;
     private final ProductController productController;
-
     private final HomeController homeController;
 
     public CategoryController(HomeController homeController) {
@@ -48,7 +47,6 @@ public class CategoryController {
         } catch (AppException e) {
             invalidChoice(e);
         }
-
     }
 
     private void invalidChoice(AppException e) {

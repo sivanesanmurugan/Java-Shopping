@@ -24,7 +24,7 @@ public class AuthController implements IAuthController {
     public AuthController() {
         this.loginPage = new LoginPage();
         this.registerPage = new RegisterPage();
-        this.homeController = new HomeController();
+        this.homeController = new HomeController(this);
         this.authPage = new AuthPage();
     }
 

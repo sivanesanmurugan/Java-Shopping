@@ -5,18 +5,29 @@ import org.example.util.StringUtils;
 
 import java.util.ArrayList;
 
+import static org.example.util.Utils.println;
+
 public class ProductsPage{
     public void printProducts(ArrayList<Product> catProducts) {
-        try {
-            System.out.println(StringUtils.PRODUCT_MENU);
-            System.out.println("#---------------------#");
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         for(Product product:catProducts){
             System.out.println(product.getId() + ". " + product.getTitle() + " - Rs." + product.getPrice());
         }
 
+    }
+
+    public void printAllProducts(ArrayList<Product> allProducts) {
+        for(Product product:allProducts){
+            System.out.println(product.getId() + ". " + product.getTitle() + " - Rs." + product.getPrice());
+        }
+    }
+    public void printSuccess() {
+        try {
+            println("#---------------------#");
+            println(StringUtils.CART_SUCCESS);
+            println("#---------------------#");
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

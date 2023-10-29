@@ -7,6 +7,16 @@ public class User {
     private String email;
     private String password;
     private String name;
+    private Cart userCart;
+
+    public Cart getUserCart() {
+        return userCart;
+    }
+
+    public void setUserCart(Cart userCart) {
+        this.userCart = userCart;
+    }
+
     private Role role;
 
 

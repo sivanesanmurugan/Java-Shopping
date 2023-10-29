@@ -24,4 +24,7 @@ public class FileUtil {
             productsFile= new File("src/main/java/org/example/assets/products.csv");
         return productsFile;
     }
+    public static String getFilePath() {
+        return "src/main/java/org/example/assets";
+    }
 }

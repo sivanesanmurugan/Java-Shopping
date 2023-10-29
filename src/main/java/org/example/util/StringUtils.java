@@ -21,4 +21,8 @@ public class StringUtils {
     public static final String CART = "Cart";
     public static final String TOTAL_PRICE = "Total Price - Rs. ";
     public static final String PRINT_CHECKOUT = "88. Checkout";
+    public static final String PLACE_ORDER = "Your order has been placed!!!";
+    public static final String ORDERS = "Orders";
+    public static final String THANK_YOU = "Thank you!!!";
+    public static final String NO_ORDER = "No orders placed so far";
 }

@@ -5,16 +5,24 @@ import org.example.util.AppInput;
 import org.example.util.StringUtils;
 import org.example.view.HomePage;
 
+import static org.example.util.UserUtil.setLoggedUser;
+
 public class HomeController {
     private final HomePage homePage;
+    private final AuthController authController;
     private final CategoryController categoryController;
     private  final ProductController productController;
+    private  final CartController cartController;
+    private final OrderController orderController;
 
 
-    public HomeController() {
+    public HomeController(AuthController authController) {
         this.homePage = new HomePage();
+        this.authController = authController;
         this.categoryController = new CategoryController(this);
         this.productController=new ProductController(this);
+        this.cartController=new CartController(this);
+        orderController = new OrderController(this);
     }
 
     public void printMenu() {
@@ -24,13 +32,15 @@ public class HomeController {
             if (choice == 1) {
                 categoryController.printMenu();
             } else if (choice == 2) {
-
+                productController.showProducts(0);
             } else if (choice == 3) {
-                System.out.println(choice);
+                cartController.printCart();
             } else if (choice == 4) {
-                System.out.println(choice);
+                orderController.printOrders();
+                printMenu();
             } else if (choice == 5) {
-                System.out.println(choice);
+                setLoggedUser(null);
+                authController.authMenu();
             } else {
                 invalidChoice(new AppException(StringUtils.INVALID_CHOICE));
             }
