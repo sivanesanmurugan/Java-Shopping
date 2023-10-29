@@ -25,4 +25,5 @@ public class StringUtils {
     public static final String ORDERS = "Orders";
     public static final String THANK_YOU = "Thank you!!!";
     public static final String NO_ORDER = "No orders placed so far";
+    public static final String STYLE = "<-------------------------->";
 }

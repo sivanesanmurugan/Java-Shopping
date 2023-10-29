@@ -25,6 +25,6 @@ public class FileUtil {
         return productsFile;
     }
     public static String getFilePath() {
-        return "src/main/java/org/example/assets";
+        return "src/main/java/org/example/assets/";
     }
 }

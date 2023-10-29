@@ -23,6 +23,7 @@ import static org.example.util.UserUtil.getLoggedUser;
 import static org.example.util.Utils.println;
 
 public class OrderController {
+
     private final HomeController homeController;
     private final OrdersPage ordersPage;
 
@@ -30,6 +31,7 @@ public class OrderController {
         this.homeController = homeController;
         ordersPage = new OrdersPage();
     }
+
 
     public void checkout() {
         User loggedInUser = getLoggedUser();
@@ -115,6 +117,7 @@ public class OrderController {
             } catch (IOException | ParseException e) {
                 throw new RuntimeException(e);
             }
+
         }
         return files;
     }

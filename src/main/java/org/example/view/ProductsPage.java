@@ -19,6 +19,7 @@ public class ProductsPage{
         for(Product product:allProducts){
             System.out.println(product.getId() + ". " + product.getTitle() + " - Rs." + product.getPrice());
         }
+        println(StringUtils.BACK_OPTION);
     }
     public void printSuccess() {
         try {

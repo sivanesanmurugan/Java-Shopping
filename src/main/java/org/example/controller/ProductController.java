@@ -10,6 +10,7 @@ import org.example.view.ProductsPage;
 import java.util.ArrayList;
 
 import static org.example.util.AppInput.enterInt;
+import static org.example.util.LoadUtils.getProducts;
 import static org.example.util.Utils.println;
 
 public class ProductController implements IProductController {
@@ -26,18 +27,24 @@ public class ProductController implements IProductController {
 
     @Override
     public void showProducts(int catId) {
-
         this.catId = catId;
-        ArrayList<Product> products = LoadUtils.getProducts();
-        ArrayList<Product> catProducts = new ArrayList<>();
-        for(Product product:products){
-            if(product.getCategory().getId()==catId){
-                catProducts.add(product);
+        ArrayList<Product> products = getProducts();
+        if (catId != 0) {
+            ArrayList<Product> categoryProducts = new ArrayList<>();
+            println(StringUtils.STYLE);
+            println(StringUtils.PRODUCT_MENU);
+            println(StringUtils.STYLE);
+            for (Product product : products) {
+                if (product.getCategory().getId() == catId) {
+                    categoryProducts.add(product);
+                }
             }
+            products = categoryProducts;
         }
-        productsPage.printProducts(catProducts);
+
+        productsPage.printProducts(products);
+
         try {
-            showAllProducts();
             int choice = enterInt(StringUtils.ENTER_CHOICE);
             int validProductId = 0;
 
@@ -64,13 +71,6 @@ public class ProductController implements IProductController {
         }
     }
 
-    @Override
-    public void showAllProducts() {
-        ArrayList<Product> products = LoadUtils.getProducts();
-        ArrayList<Product> allProducts = new ArrayList<>();
-        allProducts.addAll(products);
-        productsPage.printAllProducts(allProducts);
-    }
     private void invalidChoice(AppException appException) {
         println(appException.getMessage());
         showProducts(catId);

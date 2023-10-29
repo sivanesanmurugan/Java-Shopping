@@ -9,6 +9,8 @@ import org.example.view.CategoryPage;
 
 import java.util.ArrayList;
 
+import static org.example.util.Utils.println;
+
 public class CategoryController {
     private final CategoryPage categoryPage;
     private final ProductController productController;
@@ -24,28 +26,26 @@ public class CategoryController {
     public void printMenu() {
         ArrayList<Category> categories = LoadUtils.getCategories();
         categoryPage.printMenu(categories);
-
         try{
             int choice = AppInput.enterInt(StringUtils.ENTER_CHOICE);
             if (choice == 99){
-
+              homeController.printMenu();
             } else {
-                int catId = 0;
-                for(Category cat:categories){
-                    if(cat.getId()==choice){
-                        catId = choice;
+                int validCategoryId = 0;
+                for (Category category : categories) {
+                    if (category.getId() == choice) {
+                        validCategoryId = category.getId();
                         break;
                     }
                 }
-                if(catId!=0) {
-                    productController.showProducts(catId);
+                if(validCategoryId!=0) {
+                    productController.showProducts(validCategoryId);
                 } else{
                     invalidChoice(new AppException(StringUtils.INVALID_CHOICE));
                 }
             }
-
-        } catch (AppException e) {
-            invalidChoice(e);
+        }catch (AppException appException) {
+            invalidChoice(appException);
         }
     }
 
