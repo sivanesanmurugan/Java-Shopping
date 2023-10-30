@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.models.CartProduct;
+import org.example.models.Product;
 import org.example.models.User;
 import org.example.util.AppException;
 import org.example.util.StringUtils;
@@ -33,7 +34,7 @@ public class OrderController {
     }
 
 
-    public void checkout() {
+    public void checkout(Product userCart) {
         User loggedInUser = getLoggedUser();
 
         try {

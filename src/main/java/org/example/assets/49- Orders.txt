@@ -1,4 +1,3 @@
 Your Order are:
-"iphone" x 1 = Rs. 50000.0
-"shirt" x 1 = Rs. 1500.0
-Total - Rs. 51500.0
+"Poco" x 1 = Rs. 60000.0
+Total - Rs. 60000.0

@@ -84,7 +84,7 @@ public class CartController implements ICartController {
             try {
                 int choice = enterInt(StringUtils.ENTER_CHOICE);
                 if (choice == 88) {
-                    checkout();
+                    checkout(userProduct);
                 } else if (choice == 99) {
                     homeController.printMenu();
                 } else {
@@ -96,11 +96,10 @@ public class CartController implements ICartController {
 
         }
     }
-
+    Product userProduct=null;
     public void storeCartProduct(int id) {
         User loggedInUser = getLoggedUser();
         ArrayList<Product> products = getProducts();
-        Product userProduct=null;
         for (Product product:products){
             if(product.getId()==id){
                 userProduct=product;
@@ -109,9 +108,9 @@ public class CartController implements ICartController {
         }
         try {
             FileWriter csv = new FileWriter(getFilePath() + loggedInUser.getId() + "-Cart" + ".csv", true);
-                csv.append("\n");
-                csv.append(userProduct.getId() + ","  +userProduct.getTitle() +"," + userProduct.getPrice());
 
+                csv.append("\n");
+                csv.append(loggedInUser.getId() + ","  +userProduct.getTitle() +"," + userProduct.getPrice());
             csv.flush();
             csv.close();
         } catch (IOException e) {
@@ -124,8 +123,8 @@ public class CartController implements ICartController {
         printCart();
     }
 
-    private void checkout() {
-        orderController.checkout();
+    private void checkout(Product userProduct) {
+        orderController.checkout(userProduct);
     }
 }
 
