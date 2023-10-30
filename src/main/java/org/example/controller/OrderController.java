@@ -37,7 +37,7 @@ public class OrderController {
         User loggedInUser = getLoggedUser();
 
         try {
-            FileWriter fileWriter = new FileWriter(getFilePath() + loggedInUser.getId() + "-" + System.currentTimeMillis() + ".txt");
+            FileWriter fileWriter = new FileWriter(getFilePath() + loggedInUser.getId() + "- Orders" + ".txt");
             fileWriter.write("Your Order are:");
             fileWriter.write("\n");
 

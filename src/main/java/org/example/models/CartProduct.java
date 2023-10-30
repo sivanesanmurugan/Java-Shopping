@@ -7,7 +7,6 @@ public class CartProduct {
     public CartProduct(Product userProduct, int count) {
         this.product = userProduct;
         this.count = count;
-
     }
 
     public Product getProduct() {
