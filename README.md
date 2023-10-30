@@ -31,8 +31,8 @@
 1. "User credential" file for storing user data.
 2. "Category data" file for storing categories.
 3. "Product data" file for storing Products.
-4. "Cart data" file for storing user cart details.
-5. "Order data" file for storing user order details.
+4. "Cart data" file for storing user cart details for each user.
+5. "Order data" file for storing user order details for each user.
 
 #Applicaption working and steps 
 
@@ -49,12 +49,9 @@ Steps:
 9. Used "Date" class for handling date for orders.
 10. Handled exceptions for invalid choices.
 
-Challenges:
+#Challenges I faced:
 -----------
-1. Faced "concurrentmodificationexception" - Caught this exception while working with Java collections.
-    -> Solved it by not making any changes while the iterator is working on a ArrayList.
-2. Faced "StackOverFlow" - Caught this while creating parallel objects through constructor.
+1. a problem while trying to update the cart count of a user product in the "CSV File".
+2. while updating the cart already existing cart is appended 
+3. Faced "StackOverFlow" - Caught this while creating parallel objects through constructor.
     -> Solved it by passing the instance "this" to other constructor.
-3. Had a problem while trying to update the cart count of a user product in the "CSV File".
-    -> Solved it by storing the cart data by reading the "CSV File" and storing it in a ArrayList and updating the Arraylist and Writing it again to the "CSV File" 
-       by deleting and creating the file again.
